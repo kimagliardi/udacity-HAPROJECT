@@ -78,10 +78,10 @@ Resources:
               apt-get install apache2 -y
               systemctl start apache2.service
               cd /var/www/html
-              aws s3 cp s3://udacity-demo-1/udacity.zip .           
-              unzip -o udacity.zip
-              rm -rf udacity.zip
-        ImageId: ami-06f2f779464715dc5
+              rm -f index.html
+              wget http://udagram-kim.s3.amazonaws.com/udacity.zip .
+              unzip -o udacity.zip       
+        ImageId: ami-06f2f779464715dc5         
         SecurityGroups:
         - Ref: WebServersSecurityGroup
         InstanceType: t3.medium
@@ -89,7 +89,6 @@ Resources:
         - DeviceName: "/dev/sdk"
           Ebs:
             VolumeSize: '10'
-
 
   WebAppGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
